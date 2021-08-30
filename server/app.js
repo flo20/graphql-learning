@@ -10,7 +10,9 @@ const mongoose= require("mongoose");
 const app = express();
 
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
-
+mongoose.connection.once('open', () => {
+    console.log('Connected to database');
+});
 
 //Middleware
 app.use("/graphql",graphqlHTTP({
