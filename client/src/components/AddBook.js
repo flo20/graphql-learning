@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { gql } from "@apollo/client";
 import { graphql } from "@apollo/client/react/hoc";
 
@@ -12,21 +12,42 @@ const getAuthorsQuery = gql`
   }
 `;
 
-function AddBooks(props) {
-  const fetchAuthorData = props.data;
-  console.log(fetchAuthorData);
 
+const handleChange = () => {
+  console.log("Changes");
+};
+
+const AddBooks = (props) => {
+   const data = props.data;
+   console.log(data);
   return (
     <div>
-      {fetchAuthorData.loading === false && (
         <div>
-          {fetchAuthorData.authors.map((author) => {
-            return <div key={author.id}>{author.name}</div>;
-          })}
+          <div>
+            Authors
+            <select onChange={handleChange}>
+              <option value="">Select Author</option>
+            {(data.loading === false) && (
+              <Fragment>
+                {data.authors.map(author => {
+                  return (
+                    <option key={author.id} value={author.id}>
+                      {author.name}
+                    </option>
+                  )
+                })}
+                </Fragment>
+             )}
+            
+            </select>
+          </div>
         </div>
-      )}
     </div>
   );
 }
 
 export default graphql(getAuthorsQuery)(AddBooks);
+
+
+
+   
