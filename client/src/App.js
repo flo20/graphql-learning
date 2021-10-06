@@ -13,11 +13,11 @@ export default function App() {
 
   console.log("Client data", client);
   return (
-    <div id="main">
-      <ApolloProvider client={client}>
-        <AddBook />
-        <BookList />
-      </ApolloProvider>
-    </div>
-  );
+		<div id="main">
+			<ApolloProvider client={client}>
+				<BookList />
+				<AddBook />
+			</ApolloProvider>
+		</div>
+	);
 }
